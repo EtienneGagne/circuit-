@@ -40,7 +40,7 @@ public class Fenetre extends JFrame implements Observer {
         settingWindow();
 
         setResizable(false);
-        pack();
+//        pack();
 
         this.setVisible(true);
     }
@@ -49,12 +49,12 @@ public class Fenetre extends JFrame implements Observer {
 
         pnlPrincipal.add(pnlJeu, BorderLayout.EAST);
         pnlPrincipal.add(pnlCarre, BorderLayout.WEST);
-        pnlJeu.setPreferredSize(new Dimension(100, 800));
-        pnlCarre.setPreferredSize(new Dimension(100, 500));
+        pnlJeu.setPreferredSize(new Dimension(700, 800));
+        pnlCarre.setPreferredSize(new Dimension(100, 900));
 
         for (int i = 0; i < 20; i++) {
             JButton carre = new JButton("" + i);
-            carre.setPreferredSize(new Dimension(50, 50));
+    carre.setPreferredSize(new Dimension(50,50));
 
             pnlCarre.add(carre);
 
