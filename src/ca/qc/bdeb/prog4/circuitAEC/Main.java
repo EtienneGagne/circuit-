@@ -5,6 +5,8 @@
  */
 package ca.qc.bdeb.prog4.circuitAEC;
 
+import Vue.Fenetre;
+
 /**
  *
  * @author 1637157
@@ -15,7 +17,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("COUCOU!!!!");
+       Fenetre fenetre=new Fenetre();
         
     }
     
