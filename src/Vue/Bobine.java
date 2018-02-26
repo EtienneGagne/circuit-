@@ -10,5 +10,8 @@ package Vue;
  * @author 1637157
  */
 public class Bobine {
+
+    public Bobine() {
+    }
     
 }
