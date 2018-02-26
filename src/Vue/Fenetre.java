@@ -18,7 +18,8 @@ public class Fenetre extends JFrame implements Observer {
 
     private JPanel pnlPrincipal = new JPanel(new BorderLayout());
     private JPanel pnlCarre = new JPanel(new GridLayout(10, 2));
-    private JPanel pnlJeu = new JPanel(new BorderLayout());
+    private JPanel pnlJeu = new JPanel(new GridLayout(6, 6));
+    
 
     private JMenuBar monMenu = new JMenuBar();
     private final JMenu mnuFichier = new JMenu("Fichier");
@@ -32,32 +33,37 @@ public class Fenetre extends JFrame implements Observer {
     public Fenetre() {
         setTitle("circuitAEC");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1600, 850);
+        setSize(900, 850);
+
+        add(pnlPrincipal);
 
         settingWindow();
+
+        setResizable(false);
+        pack();
+
         this.setVisible(true);
     }
 
     public void settingWindow() {
 
-        add(pnlPrincipal);
-        pnlPrincipal.add(pnlJeu);
+        pnlPrincipal.add(pnlJeu, BorderLayout.EAST);
         pnlPrincipal.add(pnlCarre, BorderLayout.WEST);
+        pnlJeu.setPreferredSize(new Dimension(100, 800));
+        pnlCarre.setPreferredSize(new Dimension(100, 500));
 
         for (int i = 0; i < 20; i++) {
             JButton carre = new JButton("" + i);
-            carre.setPreferredSize(new Dimension(100, 100));
-         
+            carre.setPreferredSize(new Dimension(50, 50));
 
             pnlCarre.add(carre);
-            
-        }
-        pnlJeu.setPreferredSize(new Dimension(100,850));
-        pnlCarre.setPreferredSize(new Dimension(100,850));
-        JScrollPane scrollPane = new JScrollPane(pnlCarre);
-     this.add(scrollPane);
 
-        
+        }
+
+        pnlPrincipal.setPreferredSize(new Dimension(500, 500));
+        JScrollPane scrollPane = new JScrollPane(pnlCarre);
+        pnlPrincipal.add(scrollPane);
+
         monMenu.add(mnuFichier);
         monMenu.add(mnuAide);
         monMenu.add(mnuAPropos);
