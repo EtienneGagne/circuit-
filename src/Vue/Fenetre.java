@@ -21,8 +21,15 @@ public class Fenetre extends JFrame implements Observer {
 
     private JPanel pnlPrincipal = new JPanel(new BorderLayout());
     private JPanel pnlCarre = new JPanel(new GridLayout(10, 2));
-    private JPanel pnlJeu = new JPanel(new GridLayout(6, 6));
-    
+    private JPanel pnlJeu = new JPanel(new BorderLayout());
+    private JPanel pnlNiveau = new JPanel(new BorderLayout());
+    private JPanel pnlChronoPoint = new JPanel(new BorderLayout());
+    private JPanel pnlGrille = new JPanel(new GridLayout(6, 6));
+    private JLabel lblNiveau = new JLabel("Niveau");
+    private JLabel lblEnoncer = new JLabel("Énoncé du problème:");
+    private JLabel lblChrono = new JLabel("00:00 min");
+    private JLabel lblPoint = new JLabel("0 points");
+    private JLabel lblEspace = new JLabel("          ");
 
     private JMenuBar monMenu = new JMenuBar();
     private final JMenu mnuFichier = new JMenu("Fichier");
@@ -43,7 +50,7 @@ public class Fenetre extends JFrame implements Observer {
         setTitle("circuitAEC");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 850);
-
+//900,850
         add(pnlPrincipal);
 
         settingWindow();
@@ -59,15 +66,33 @@ public class Fenetre extends JFrame implements Observer {
 
         pnlPrincipal.add(pnlJeu, BorderLayout.EAST);
         pnlPrincipal.add(pnlCarre, BorderLayout.WEST);
-        pnlJeu.setPreferredSize(new Dimension(700, 800));
+        pnlJeu.setPreferredSize(new Dimension(700, 900));
         pnlCarre.setPreferredSize(new Dimension(100, 900));
+        pnlJeu.add(pnlNiveau, BorderLayout.NORTH);
+        pnlJeu.add(pnlChronoPoint, BorderLayout.SOUTH);
+        pnlJeu.add(pnlGrille, BorderLayout.CENTER);
+        pnlJeu.add(lblEspace,BorderLayout.WEST);
+        pnlNiveau.add(lblNiveau, BorderLayout.NORTH);
+        pnlNiveau.add(lblEnoncer, BorderLayout.SOUTH);
+        pnlChronoPoint.add(lblChrono, BorderLayout.WEST);
+        pnlChronoPoint.add(lblPoint, BorderLayout.EAST);
 
         for (int i = 0; i < 20; i++) {
             JButton carre = new JButton("" + i);
-    carre.setPreferredSize(new Dimension(50,50));
+            carre.setPreferredSize(new Dimension(50, 50));
 
             pnlCarre.add(carre);
+            
 
+        }JLabel tab[][]=new JLabel[6][6];
+        for (int i = 0; i < 6; i++) {
+          
+            for(int j=0;j<6;j++){
+          
+          JLabel cercle=new JLabel("o");
+          tab[i][j]=cercle;
+            
+            pnlGrille.add(cercle);}
         }
 
         pnlPrincipal.setPreferredSize(new Dimension(500, 500));
@@ -75,34 +100,36 @@ public class Fenetre extends JFrame implements Observer {
         pnlPrincipal.add(scrollPane);
 
     }
+
     private void initMenu() {
-        
+
         monMenu.add(mnuFichier);
         monMenu.add(mnuAide);
         monMenu.add(mnuMode);
-        
+
         mnuFichier.add(mnuNouvellePartie);
         mnuFichier.addSeparator();
         mnuFichier.add(mnuAPropos);
         mnuFichier.addSeparator();
         mnuFichier.add(mnuQuitter);
-        
+
         mnuAide.add(mnuFormules);
         mnuAide.addSeparator();
         mnuAide.add(mnuReponses);
         mnuAide.addSeparator();
         mnuAide.add(mnuRegles);
-        
+
         mnuMode.add(mnuApprentissage);
         mnuMode.addSeparator();
         mnuMode.add(mnuChrono);
         mnuMode.addSeparator();
         mnuMode.add(mnuLibre);
-        
+
         setJMenuBar(monMenu);
-        
+
         listenersMenus();
     }
+
     public void listenersMenus() {
         mnuNouvellePartie.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
@@ -110,7 +137,7 @@ public class Fenetre extends JFrame implements Observer {
 //            	modele.reset();
             }
         });
-        
+
         mnuAPropos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 JOptionPane.showMessageDialog(null, "Étienne Gagné,Audrey Lupien et Cloé Lachance, créé le 54 fevars");
@@ -130,18 +157,18 @@ public class Fenetre extends JFrame implements Observer {
                 }
             }
         });
-        
+
         mnuFormules.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 JOptionPane.showMessageDialog(null, "Ajouter Formules ici!!!");
             }
         });
-        
+
         mnuReponses.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-        Object reponse = JOptionPane.showInputDialog(null,
-            "De quel niveau voulez-vous voir la réponse ?", "Réponses",
-            JOptionPane.QUESTION_MESSAGE, null, new String[] { "1", "2", "3", "4","5","..." },null);
+                Object reponse = JOptionPane.showInputDialog(null,
+                        "De quel niveau voulez-vous voir la réponse ?", "Réponses",
+                        JOptionPane.QUESTION_MESSAGE, null, new String[]{"1", "2", "3", "4", "5", "..."}, null);
 
             }
         });
@@ -150,20 +177,20 @@ public class Fenetre extends JFrame implements Observer {
                 JOptionPane.showMessageDialog(null, "Écrire les règles du jeu ici!!!");
             }
         });
-        
-         mnuApprentissage.addActionListener(new ActionListener() {
+
+        mnuApprentissage.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
 //            	
             }
         });
-         
-         mnuChrono.addActionListener(new ActionListener() {
+
+        mnuChrono.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
 //            	
             }
         });
-         
-         mnuLibre.addActionListener(new ActionListener() {
+
+        mnuLibre.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
 //            	
             }
