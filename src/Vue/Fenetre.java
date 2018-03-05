@@ -3,6 +3,8 @@ package Vue;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
@@ -11,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -24,11 +27,17 @@ public class Fenetre extends JFrame implements Observer {
     private JMenuBar monMenu = new JMenuBar();
     private final JMenu mnuFichier = new JMenu("Fichier");
     private final JMenu mnuAide = new JMenu("?");
-    private final JMenu mnuAPropos = new JMenu("À propos");
+    private final JMenuItem mnuAPropos = new JMenuItem("À propos");
+    private final JMenu mnuMode = new JMenu("Mode de Jeu");
     private final JMenuItem mnuNouvellePartie = new JMenuItem("Nouvelle partie");
     private final JMenuItem mnuQuitter = new JMenuItem("Quitter");
-    private final JMenuItem mnuSousAide = new JMenuItem("Aide");
-    private final JMenuItem mnusousÀPropos = new JMenu("Étienne Gagné,Audrey Lupien et Cloé Lachance");
+    private final JMenuItem mnuFormules = new JMenuItem("Formules utiles");
+    private final JMenuItem mnuReponses = new JMenuItem("Réponses des niveaux");
+    private final JMenuItem mnuRegles = new JMenuItem("Comment jouer ?");
+    private final JMenuItem mnuApprentissage = new JMenuItem("Apprentissage");
+    private final JMenuItem mnuChrono = new JMenuItem("Chrono");
+    private final JMenuItem mnuLibre = new JMenuItem("Libre");
+//    private final JMenuItem mnusousÀPropos = new JMenu("Étienne Gagné,Audrey Lupien et Cloé Lachance");
 
     public Fenetre() {
         setTitle("circuitAEC");
@@ -38,6 +47,7 @@ public class Fenetre extends JFrame implements Observer {
         add(pnlPrincipal);
 
         settingWindow();
+        initMenu();
 
         setResizable(false);
 //        pack();
@@ -64,16 +74,100 @@ public class Fenetre extends JFrame implements Observer {
         JScrollPane scrollPane = new JScrollPane(pnlCarre);
         pnlPrincipal.add(scrollPane);
 
+    }
+    private void initMenu() {
+        
         monMenu.add(mnuFichier);
         monMenu.add(mnuAide);
-        monMenu.add(mnuAPropos);
+        monMenu.add(mnuMode);
+        
         mnuFichier.add(mnuNouvellePartie);
         mnuFichier.addSeparator();
+        mnuFichier.add(mnuAPropos);
+        mnuFichier.addSeparator();
         mnuFichier.add(mnuQuitter);
-        mnuAide.add(mnuSousAide);
-        mnuAPropos.add(mnusousÀPropos);
-
+        
+        mnuAide.add(mnuFormules);
+        mnuAide.addSeparator();
+        mnuAide.add(mnuReponses);
+        mnuAide.addSeparator();
+        mnuAide.add(mnuRegles);
+        
+        mnuMode.add(mnuApprentissage);
+        mnuMode.addSeparator();
+        mnuMode.add(mnuChrono);
+        mnuMode.addSeparator();
+        mnuMode.add(mnuLibre);
+        
         setJMenuBar(monMenu);
+        
+        listenersMenus();
+    }
+    public void listenersMenus() {
+        mnuNouvellePartie.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+//            	finDePartie();
+//            	modele.reset();
+            }
+        });
+        
+        mnuAPropos.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                JOptionPane.showMessageDialog(null, "Étienne Gagné,Audrey Lupien et Cloé Lachance, créé le 54 fevars");
+            }
+        });
+
+        mnuQuitter.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+
+                int dialogBouton = JOptionPane.YES_NO_OPTION;
+                int reponse = JOptionPane.showConfirmDialog(null, "Voulez-vous "
+                        + "vraiment quitter ce merveilleux jeux?", "Question", dialogBouton);
+                if (reponse == JOptionPane.NO_OPTION) {
+
+                } else if (reponse == JOptionPane.YES_OPTION) {
+                    System.exit(0);
+                }
+            }
+        });
+        
+        mnuFormules.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                JOptionPane.showMessageDialog(null, "Ajouter Formules ici!!!");
+            }
+        });
+        
+        mnuReponses.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+        Object reponse = JOptionPane.showInputDialog(null,
+            "De quel niveau voulez-vous voir la réponse ?", "Réponses",
+            JOptionPane.QUESTION_MESSAGE, null, new String[] { "1", "2", "3", "4","5","..." },null);
+
+            }
+        });
+        mnuRegles.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                JOptionPane.showMessageDialog(null, "Écrire les règles du jeu ici!!!");
+            }
+        });
+        
+         mnuApprentissage.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+//            	
+            }
+        });
+         
+         mnuChrono.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+//            	
+            }
+        });
+         
+         mnuLibre.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+//            	
+            }
+        });
 
     }
 
