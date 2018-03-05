@@ -19,24 +19,20 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class Fenetre extends JFrame implements Observer {
-    
-    
 
-    private int nombrePoint=0;
-    private int nombreNiveau=0;
+    private int nombrePoint = 0;
+    private int nombreNiveau = 0;
     private JPanel pnlPrincipal = new JPanel(new BorderLayout());
     private JPanel pnlCarre = new JPanel(new GridLayout(10, 2));
     private JPanel pnlJeu = new JPanel(new BorderLayout());
     private JPanel pnlNiveau = new JPanel(new BorderLayout());
     private JPanel pnlChronoPoint = new JPanel(new BorderLayout());
     private JPanel pnlGrille = new JPanel(new GridLayout(6, 6));
-    private JLabel lblNiveau = new JLabel("Niveau:"+nombreNiveau );
+    private JLabel lblNiveau = new JLabel("Niveau:" + nombreNiveau);
     private JLabel lblEnoncer = new JLabel("Énoncé du problème:");
     private JLabel lblChrono = new JLabel("00:00 min");
-    private JLabel lblPoint = new JLabel(nombrePoint +" points");
+    private JLabel lblPoint = new JLabel(nombrePoint + " points");
     private JLabel lblEspace = new JLabel("          ");
-    
-    
 
     private JMenuBar monMenu = new JMenuBar();
     private final JMenu mnuFichier = new JMenu("Fichier");
@@ -64,7 +60,7 @@ public class Fenetre extends JFrame implements Observer {
         initMenu();
 
         setResizable(false);
-//        pack();
+        //pack();
 
         this.setVisible(true);
     }
@@ -74,35 +70,51 @@ public class Fenetre extends JFrame implements Observer {
         pnlPrincipal.add(pnlJeu, BorderLayout.EAST);
         pnlPrincipal.add(pnlCarre, BorderLayout.WEST);
         pnlJeu.setPreferredSize(new Dimension(700, 900));
-        pnlCarre.setPreferredSize(new Dimension(100, 900));
+       // pnlCarre.setPreferredSize(new Dimension(100, 900));
         pnlJeu.add(pnlNiveau, BorderLayout.NORTH);
         pnlJeu.add(pnlChronoPoint, BorderLayout.SOUTH);
         pnlJeu.add(pnlGrille, BorderLayout.CENTER);
-        pnlJeu.add(lblEspace,BorderLayout.WEST);
+        pnlJeu.add(lblEspace, BorderLayout.WEST);
         pnlNiveau.add(lblNiveau, BorderLayout.NORTH);
         pnlNiveau.add(lblEnoncer, BorderLayout.SOUTH);
         pnlChronoPoint.add(lblChrono, BorderLayout.WEST);
         pnlChronoPoint.add(lblPoint, BorderLayout.EAST);
 
-        for (int i = 0; i < 20; i++) {
-            JButton carre = new JButton("" + i);
-            carre.setPreferredSize(new Dimension(50, 50));
+        Amperemetre amperemetre = new Amperemetre();
+        Ampoule ampoule = new Ampoule();
+        Bobine bobine = new Bobine();
+        Condensateur condensateur = new Condensateur();
+        InterrupteurO interrupteurO = new InterrupteurO();
+        InterrupteurF interrupteurF = new InterrupteurF();
+        Pile pile = new Pile();
+        Resistance resistance = new Resistance();
+        Voltmetre voltmetre = new Voltmetre();
 
-            pnlCarre.add(carre);
-            
+      
 
-        }JLabel tab[][]=new JLabel[6][6];
+        pnlCarre.add(new JButton(amperemetre));
+        pnlCarre.add(new JButton(ampoule));
+        pnlCarre.add(new JButton(bobine));
+        pnlCarre.add(new JButton(condensateur));
+        pnlCarre.add(new JButton(interrupteurO));
+        pnlCarre.add(new JButton(interrupteurF));
+        pnlCarre.add(new JButton(pile));
+        pnlCarre.add(new JButton(resistance));
+        pnlCarre.add(new JButton(voltmetre));
+
+        JLabel tab[][] = new JLabel[6][6];
         for (int i = 0; i < 6; i++) {
-          
-            for(int j=0;j<6;j++){
-          
-          JLabel cercle=new JLabel("o");
-          tab[i][j]=cercle;
-            
-            pnlGrille.add(cercle);}
+
+            for (int j = 0; j < 6; j++) {
+
+                JLabel cercle = new JLabel("o");
+                tab[i][j] = cercle;
+
+                pnlGrille.add(cercle);
+            }
         }
 
-        pnlPrincipal.setPreferredSize(new Dimension(500, 500));
+        //pnlPrincipal.setPreferredSize(new Dimension(500, 500));
         JScrollPane scrollPane = new JScrollPane(pnlCarre);
         pnlPrincipal.add(scrollPane);
 
@@ -204,7 +216,8 @@ public class Fenetre extends JFrame implements Observer {
         });
 
     }
-     public int getNombreNiveau() {
+
+    public int getNombreNiveau() {
         return nombreNiveau;
     }
 

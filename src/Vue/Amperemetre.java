@@ -1,17 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vue;
 
-/**
- *
- * @author 1637157
- */
-public class Amperemetre {
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
+
+public class Amperemetre extends ImageIcon {
+static Image imageAmperemetre = Toolkit.getDefaultToolkit().getImage("amperemetreps.png");
     public Amperemetre() {
+        super(imageAmperemetre);
     }
     
 }

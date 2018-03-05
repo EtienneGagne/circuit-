@@ -1,17 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Vue;
 
-/**
- *
- * @author 1637157
- */
-public class Bobine {
 
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
+
+public class Bobine extends ImageIcon {
+static Image imageBobine = Toolkit.getDefaultToolkit().getImage("bobineps.png");
     public Bobine() {
+        super(imageBobine);
     }
     
 }
