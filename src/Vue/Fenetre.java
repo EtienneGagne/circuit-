@@ -1,5 +1,6 @@
 package Vue;
 
+import Modele.Modele;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -18,18 +19,24 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class Fenetre extends JFrame implements Observer {
+    
+    
 
+    private int nombrePoint=0;
+    private int nombreNiveau=0;
     private JPanel pnlPrincipal = new JPanel(new BorderLayout());
     private JPanel pnlCarre = new JPanel(new GridLayout(10, 2));
     private JPanel pnlJeu = new JPanel(new BorderLayout());
     private JPanel pnlNiveau = new JPanel(new BorderLayout());
     private JPanel pnlChronoPoint = new JPanel(new BorderLayout());
     private JPanel pnlGrille = new JPanel(new GridLayout(6, 6));
-    private JLabel lblNiveau = new JLabel("Niveau");
+    private JLabel lblNiveau = new JLabel("Niveau:"+nombreNiveau );
     private JLabel lblEnoncer = new JLabel("Énoncé du problème:");
     private JLabel lblChrono = new JLabel("00:00 min");
-    private JLabel lblPoint = new JLabel("0 points");
+    private JLabel lblPoint = new JLabel(nombrePoint +" points");
     private JLabel lblEspace = new JLabel("          ");
+    
+    
 
     private JMenuBar monMenu = new JMenuBar();
     private final JMenu mnuFichier = new JMenu("Fichier");
@@ -46,7 +53,7 @@ public class Fenetre extends JFrame implements Observer {
     private final JMenuItem mnuLibre = new JMenuItem("Libre");
 //    private final JMenuItem mnusousÀPropos = new JMenu("Étienne Gagné,Audrey Lupien et Cloé Lachance");
 
-    public Fenetre() {
+    public Fenetre(Modele modele) {
         setTitle("circuitAEC");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 850);
@@ -196,6 +203,13 @@ public class Fenetre extends JFrame implements Observer {
             }
         });
 
+    }
+     public int getNombreNiveau() {
+        return nombreNiveau;
+    }
+
+    public int getNombrePoint() {
+        return nombrePoint;
     }
 
     @Override
