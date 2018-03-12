@@ -2,7 +2,9 @@
 package Vue;
 
 import java.awt.Image;
+
 import java.awt.Toolkit;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 
 
@@ -11,5 +13,13 @@ static Image imageAmperemetre = Toolkit.getDefaultToolkit().getImage("amperemetr
     public Amperemetre() {
         super(imageAmperemetre);
     }
+
+   public Image getImg(){
+       return imageAmperemetre;
+   }
+
+    
+
+  
     
 }
