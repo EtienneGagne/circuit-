@@ -5,10 +5,24 @@
  */
 package Controleur;
 
+import Modele.Modele;
+import Vue.Fenetre;
 /**
  *
  * @author 1637157
  */
 public class Controleur {
-    
+
+    private Fenetre vue;
+    private Modele modele;
+
+
+    public Controleur(Fenetre vue, Modele modele) {
+        this.vue = vue;
+        this.modele = modele;
+
+
+
+    }
+ 
 }
