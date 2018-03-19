@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.*;
@@ -17,14 +18,15 @@ public class Fenetre extends JFrame implements Observer {
     private int nombreNiveau = 0;
     static long chrono = 0;
     private JLabel probleme;
-    Color couleur = new Color(70, 130, 180);
+    //Color couleur = new Color(70, 130, 180);
     private JPanel pnlPrincipal = new JPanel(new BorderLayout());
     private JPanel pnlCarre = new JPanel(new GridLayout(10, 2));
     private JPanel pnlJeu = new JPanel(new BorderLayout());
+    private JPanel pnlGrille = new JPanel(new GridLayout(6, 6));
+    
     private JPanel pnlNiveau = new JPanel(new BorderLayout());
     private JPanel pnlChronoPoint = new JPanel(new BorderLayout());
-    private JPanel pnlTest = new JPanel(new BorderLayout());
-    private JPanel pnlGrille = new JPanel(new GridLayout(6, 6));
+    
     private JLabel lblNiveau = new JLabel("Niveau : " + nombreNiveau + "\n");
     private JLabel lblEnoncer = new JLabel("Énoncé du problème : " + probleme);
     private JLabel lblChrono = new JLabel("     00:00 min    ");
@@ -54,15 +56,17 @@ public class Fenetre extends JFrame implements Observer {
     private Resistance resistance = new Resistance();
     private Voltmetre voltmetre = new Voltmetre();
 
-    private JButton btn1 = new JButton();
-    private JButton btn2 = new JButton();
-    private JButton btn3 = new JButton();
-    private JButton btn4 = new JButton();
-    private JButton btn5 = new JButton();
-    private JButton btn6 = new JButton();
-    private JButton btn7 = new JButton();
-    private JButton btn8 = new JButton();
-    private JButton btn9 = new JButton();
+    private JLabel lblAmperemetre = new JLabel (amperemetre);
+    private JLabel lblAmpoule = new JLabel (ampoule);
+    private JLabel lblBobine = new JLabel (bobine);
+    private JLabel lblCondensateur = new JLabel (condensateur);
+    private JLabel lblInterrupteurO = new JLabel (interrupteurO);
+    private JLabel lblInterrupteurF = new JLabel (interrupteurF);
+    private JLabel lblPile = new JLabel (pile);
+    private JLabel lblResistance = new JLabel (resistance);
+    private JLabel lblVoltmetre = new JLabel (voltmetre);
+    
+    private JButton button = new JButton();
 
     public Fenetre(Modele modele) {
         modele.addObserver(this);
@@ -73,11 +77,11 @@ public class Fenetre extends JFrame implements Observer {
         setTitle("circuitAEC");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(900, 850);
-//900,850
+
 
         settingWindow();
         initMenu();
-        evenement();
+        //evenement();
 
         setResizable(false);
         //pack();
@@ -87,41 +91,55 @@ public class Fenetre extends JFrame implements Observer {
 
     public void settingWindow() {
         add(pnlPrincipal);
-
         pnlPrincipal.add(pnlJeu, BorderLayout.EAST);
         pnlPrincipal.add(pnlCarre, BorderLayout.WEST);
-        pnlPrincipal.add(pnlTest, BorderLayout.WEST);
+        
         pnlJeu.setPreferredSize(new Dimension(700, 900));
         pnlJeu.add(pnlNiveau, BorderLayout.NORTH);
         pnlJeu.add(pnlChronoPoint, BorderLayout.SOUTH);
         pnlJeu.add(pnlGrille, BorderLayout.CENTER);
-        pnlGrille.setBackground(couleur);
+        
+        pnlGrille.setBackground(Color.WHITE);
+        pnlGrille.add(button, BorderLayout.CENTER);
+        
         pnlNiveau.add(lblNiveau, BorderLayout.NORTH);
-        pnlNiveau.setBackground(couleur);
         pnlNiveau.add(lblEnoncer, BorderLayout.SOUTH);
+        
         pnlChronoPoint.add(lblChrono, BorderLayout.WEST);
         pnlChronoPoint.add(lblPoint, BorderLayout.EAST);
-        pnlChronoPoint.setBackground(couleur);
 
-        pnlCarre.add(btn1);
-        pnlCarre.add(btn2);
-        pnlCarre.add(btn3);
-        pnlCarre.add(btn4);
-        pnlCarre.add(btn5);
-        pnlCarre.add(btn6);
-        pnlCarre.add(btn7);
-        pnlCarre.add(btn8);
-        pnlCarre.add(btn9);
+        pnlCarre.add(lblAmperemetre);
+        pnlCarre.add(lblAmpoule);
+        pnlCarre.add(lblBobine);
+        pnlCarre.add(lblCondensateur);
+        pnlCarre.add(lblInterrupteurO);
+        pnlCarre.add(lblInterrupteurF);
+        pnlCarre.add(lblPile);
+        pnlCarre.add(lblResistance);
+        pnlCarre.add(lblVoltmetre);
+        
+        MouseListener listener = new DragMouseAdapter();
+        lblAmperemetre.addMouseListener(listener);
+        lblAmpoule.addMouseListener(listener);
+        lblBobine.addMouseListener(listener);
+        lblCondensateur.addMouseListener(listener);
+        lblInterrupteurO.addMouseListener(listener);
+        lblInterrupteurF.addMouseListener(listener);
+        lblPile.addMouseListener(listener);
+        lblResistance.addMouseListener(listener);
+        lblVoltmetre.addMouseListener(listener);
 
-        btn1.add(new JLabel(amperemetre));
-        btn2.add(new JLabel(ampoule));
-        btn3.add(new JLabel(bobine));
-        btn4.add(new JLabel(condensateur));
-        btn5.add(new JLabel(interrupteurO));
-        btn6.add(new JLabel(interrupteurF));
-        btn7.add(new JLabel(pile));
-        btn8.add(new JLabel(resistance));
-        btn9.add(new JLabel(voltmetre));
+        lblAmperemetre.setTransferHandler(new TransferHandler("icon"));
+        lblAmpoule.setTransferHandler(new TransferHandler("icon"));
+        lblBobine.setTransferHandler(new TransferHandler("icon"));
+        lblCondensateur.setTransferHandler(new TransferHandler("icon"));
+        lblInterrupteurO.setTransferHandler(new TransferHandler("icon"));
+        lblInterrupteurF.setTransferHandler(new TransferHandler("icon"));
+        lblPile.setTransferHandler(new TransferHandler("icon"));
+        lblResistance.setTransferHandler(new TransferHandler("icon"));
+        lblVoltmetre.setTransferHandler(new TransferHandler("icon"));
+        
+        button.setTransferHandler(new TransferHandler("icon"));
 
         JScrollPane scrollPane = new JScrollPane(pnlCarre);
         pnlPrincipal.add(scrollPane);
@@ -244,99 +262,99 @@ public class Fenetre extends JFrame implements Observer {
 
     }
 
-    public void evenement() {
-
-        btn1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //pnlGrille.add(new JLabel(amperemetre));
-
-                pnlGrille.add(new JLabel(amperemetre));
-                setVisible(true);
-
-            }
-        });
-        btn2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //pnlGrille.add(new JLabel(amperemetre));
-
-                pnlGrille.add(new JLabel(ampoule));
-                setVisible(true);
-
-            }
-        });
-        btn3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //pnlGrille.add(new JLabel(amperemetre));
-
-                pnlGrille.add(new JLabel(bobine));
-                setVisible(true);
-
-            }
-        });
-        btn4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //pnlGrille.add(new JLabel(amperemetre));
-
-                pnlGrille.add(new JLabel(condensateur));
-                setVisible(true);
-
-            }
-        });
-        btn5.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //pnlGrille.add(new JLabel(amperemetre));
-
-                pnlGrille.add(new JLabel(interrupteurO));
-                setVisible(true);
-
-            }
-        });
-        btn6.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //pnlGrille.add(new JLabel(amperemetre));
-
-                pnlGrille.add(new JLabel(interrupteurF));
-                setVisible(true);
-
-            }
-        });
-        btn7.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //pnlGrille.add(new JLabel(amperemetre));
-
-                pnlGrille.add(new JLabel(pile));
-                setVisible(true);
-
-            }
-        });
-        btn8.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //pnlGrille.add(new JLabel(amperemetre));
-
-                pnlGrille.add(new JLabel(resistance));
-                setVisible(true);
-
-            }
-        });
-        btn9.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //pnlGrille.add(new JLabel(amperemetre));
-
-                pnlGrille.add(new JLabel(voltmetre));
-                setVisible(true);
-
-            }
-        });
-    }
+//    public void evenement() {
+//
+//        btn1.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                //pnlGrille.add(new JLabel(amperemetre));
+//
+//                pnlGrille.add(new JLabel(amperemetre));
+//                setVisible(true);
+//
+//            }
+//        });
+//        btn2.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                //pnlGrille.add(new JLabel(amperemetre));
+//
+//                pnlGrille.add(new JLabel(ampoule));
+//                setVisible(true);
+//
+//            }
+//        });
+//        btn3.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                //pnlGrille.add(new JLabel(amperemetre));
+//
+//                pnlGrille.add(new JLabel(bobine));
+//                setVisible(true);
+//
+//            }
+//        });
+//        btn4.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                //pnlGrille.add(new JLabel(amperemetre));
+//
+//                pnlGrille.add(new JLabel(condensateur));
+//                setVisible(true);
+//
+//            }
+//        });
+//        btn5.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                //pnlGrille.add(new JLabel(amperemetre));
+//
+//                pnlGrille.add(new JLabel(interrupteurO));
+//                setVisible(true);
+//
+//            }
+//        });
+//        btn6.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                //pnlGrille.add(new JLabel(amperemetre));
+//
+//                pnlGrille.add(new JLabel(interrupteurF));
+//                setVisible(true);
+//
+//            }
+//        });
+//        btn7.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                //pnlGrille.add(new JLabel(amperemetre));
+//
+//                pnlGrille.add(new JLabel(pile));
+//                setVisible(true);
+//
+//            }
+//        });
+//        btn8.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                //pnlGrille.add(new JLabel(amperemetre));
+//
+//                pnlGrille.add(new JLabel(resistance));
+//                setVisible(true);
+//
+//            }
+//        });
+//        btn9.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                //pnlGrille.add(new JLabel(amperemetre));
+//
+//                pnlGrille.add(new JLabel(voltmetre));
+//                setVisible(true);
+//
+//            }
+//        });
+//    }
 
     public int getNombreNiveau() {
         return nombreNiveau;
