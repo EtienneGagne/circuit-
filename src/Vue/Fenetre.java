@@ -120,7 +120,12 @@ public class Fenetre extends JFrame implements Observer {
         pnlCarre.add(btn7);
         pnlCarre.add(btn8);
         pnlCarre.add(btn9);
-
+        
+//        TransferHandler transferHandler=new TransferHandler("text");
+//        transferHandler.setDragImage(amperemetre.getImage());
+//        ((JButton)pnlCarre.getComponents()[0]).setTransferHandler(transferHandler);
+//        ((JButton)pnlCarre.getComponents()[0]).addMouseListener(new Mouse 
+        
         
         btn1.setIcon(amperemetre);
         btn2.setIcon(ampoule);
