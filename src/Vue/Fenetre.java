@@ -121,6 +121,7 @@ public class Fenetre extends JFrame implements Observer {
         pnlCarre.add(btn8);
         pnlCarre.add(btn9);
 
+        
         btn1.setIcon(amperemetre);
         btn2.setIcon(ampoule);
         btn3.setIcon(bobine);
